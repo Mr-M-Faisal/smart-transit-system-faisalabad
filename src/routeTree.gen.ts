@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as TrackRouteImport } from './routes/track'
 import { Route as BusBusIdRouteImport } from './routes/bus.$busId'
@@ -37,6 +38,11 @@ const BookingsRoute = BookingsRouteImport.update({
 const NotificationsRoute = NotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SafetyRoute = SafetyRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
   '/notifications': typeof NotificationsRoute
+  '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
   '/notifications': typeof NotificationsRoute
+  '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
   '/notifications': typeof NotificationsRoute
+  '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/bookings'
     | '/notifications'
+    | '/report'
     | '/safety'
     | '/track'
     | '/bus/$busId'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/bookings'
     | '/notifications'
+    | '/report'
     | '/safety'
     | '/track'
     | '/bus/$busId'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/bookings'
     | '/notifications'
+    | '/report'
     | '/safety'
     | '/track'
     | '/bus/$busId'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   BookRoute: typeof BookRoute
   BookingsRoute: typeof BookingsRoute
   NotificationsRoute: typeof NotificationsRoute
+  ReportRoute: typeof ReportRoute
   SafetyRoute: typeof SafetyRoute
   TrackRoute: typeof TrackRoute
   BusBusIdRoute: typeof BusBusIdRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/notifications'
       fullPath: '/notifications'
       preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/safety': {
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookRoute: BookRoute,
   BookingsRoute: BookingsRoute,
   NotificationsRoute: NotificationsRoute,
+  ReportRoute: ReportRoute,
   SafetyRoute: SafetyRoute,
   TrackRoute: TrackRoute,
   BusBusIdRoute: BusBusIdRoute,
