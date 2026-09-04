@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookRouteImport } from './routes/book'
+import { Route as BookingsRouteImport } from './routes/bookings'
 import { Route as TrackRouteImport } from './routes/track'
 import { Route as BusBusIdRouteImport } from './routes/bus.$busId'
 import { Route as RoutesIndexRouteImport } from './routes/routes.index'
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const BookRoute = BookRouteImport.update({
   id: '/book',
   path: '/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackRoute = TrackRouteImport.update({
@@ -50,6 +56,7 @@ const RoutesRouteIdRoute = RoutesRouteIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
+  '/bookings': typeof BookingsRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
+  '/bookings': typeof BookingsRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book': typeof BookRoute
+  '/bookings': typeof BookingsRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
@@ -75,13 +84,27 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/book' | '/track' | '/bus/$busId' | '/routes/$routeId' | '/routes/'
+    | '/'
+    | '/book'
+    | '/bookings'
+    | '/track'
+    | '/bus/$busId'
+    | '/routes/$routeId'
+    | '/routes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book' | '/track' | '/bus/$busId' | '/routes/$routeId' | '/routes'
+  to:
+    | '/'
+    | '/book'
+    | '/bookings'
+    | '/track'
+    | '/bus/$busId'
+    | '/routes/$routeId'
+    | '/routes'
   id:
     | '__root__'
     | '/'
     | '/book'
+    | '/bookings'
     | '/track'
     | '/bus/$busId'
     | '/routes/$routeId'
@@ -91,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookRoute: typeof BookRoute
+  BookingsRoute: typeof BookingsRoute
   TrackRoute: typeof TrackRoute
   BusBusIdRoute: typeof BusBusIdRoute
   RoutesRouteIdRoute: typeof RoutesRouteIdRoute
@@ -111,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/book'
       fullPath: '/book'
       preLoaderRoute: typeof BookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/track': {
@@ -147,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookRoute: BookRoute,
+  BookingsRoute: BookingsRoute,
   TrackRoute: TrackRoute,
   BusBusIdRoute: BusBusIdRoute,
   RoutesRouteIdRoute: RoutesRouteIdRoute,
