@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as BookingsRouteImport } from './routes/bookings'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as TrackRouteImport } from './routes/track'
 import { Route as BusBusIdRouteImport } from './routes/bus.$busId'
 import { Route as RoutesIndexRouteImport } from './routes/routes.index'
@@ -30,6 +31,11 @@ const BookRoute = BookRouteImport.update({
 const BookingsRoute = BookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackRoute = TrackRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/notifications': typeof NotificationsRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/notifications': typeof NotificationsRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/notifications': typeof NotificationsRoute
   '/track': typeof TrackRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/book'
     | '/bookings'
+    | '/notifications'
     | '/track'
     | '/bus/$busId'
     | '/routes/$routeId'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/book'
     | '/bookings'
+    | '/notifications'
     | '/track'
     | '/bus/$busId'
     | '/routes/$routeId'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/book'
     | '/bookings'
+    | '/notifications'
     | '/track'
     | '/bus/$busId'
     | '/routes/$routeId'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookRoute: typeof BookRoute
   BookingsRoute: typeof BookingsRoute
+  NotificationsRoute: typeof NotificationsRoute
   TrackRoute: typeof TrackRoute
   BusBusIdRoute: typeof BusBusIdRoute
   RoutesRouteIdRoute: typeof RoutesRouteIdRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/bookings'
       fullPath: '/bookings'
       preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/track': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookRoute: BookRoute,
   BookingsRoute: BookingsRoute,
+  NotificationsRoute: NotificationsRoute,
   TrackRoute: TrackRoute,
   BusBusIdRoute: BusBusIdRoute,
   RoutesRouteIdRoute: RoutesRouteIdRoute,
