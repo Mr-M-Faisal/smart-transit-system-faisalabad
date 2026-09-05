@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as BookingsRouteImport } from './routes/bookings'
+import { Route as DriverRouteImport } from './routes/driver'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as SafetyRouteImport } from './routes/safety'
@@ -39,6 +40,11 @@ const BookRoute = BookRouteImport.update({
 const BookingsRoute = BookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverRoute = DriverRouteImport.update({
+  id: '/driver',
+  path: '/driver',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotificationsRoute = NotificationsRouteImport.update({
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/driver': typeof DriverRoute
   '/notifications': typeof NotificationsRoute
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/driver': typeof DriverRoute
   '/notifications': typeof NotificationsRoute
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/driver': typeof DriverRoute
   '/notifications': typeof NotificationsRoute
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book'
     | '/bookings'
+    | '/driver'
     | '/notifications'
     | '/report'
     | '/safety'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book'
     | '/bookings'
+    | '/driver'
     | '/notifications'
     | '/report'
     | '/safety'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book'
     | '/bookings'
+    | '/driver'
     | '/notifications'
     | '/report'
     | '/safety'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BookRoute: typeof BookRoute
   BookingsRoute: typeof BookingsRoute
+  DriverRoute: typeof DriverRoute
   NotificationsRoute: typeof NotificationsRoute
   ReportRoute: typeof ReportRoute
   SafetyRoute: typeof SafetyRoute
@@ -201,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/bookings'
       fullPath: '/bookings'
       preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver': {
+      id: '/driver'
+      path: '/driver'
+      fullPath: '/driver'
+      preLoaderRoute: typeof DriverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notifications': {
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BookRoute: BookRoute,
   BookingsRoute: BookingsRoute,
+  DriverRoute: DriverRoute,
   NotificationsRoute: NotificationsRoute,
   ReportRoute: ReportRoute,
   SafetyRoute: SafetyRoute,
