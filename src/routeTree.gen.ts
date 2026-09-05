@@ -10,12 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as BookingsRouteImport } from './routes/bookings'
+import { Route as DriverRouteImport } from './routes/driver'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as TrackRouteImport } from './routes/track'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminFleetRouteImport } from './routes/admin.fleet'
 import { Route as BusBusIdRouteImport } from './routes/bus.$busId'
 import { Route as RoutesIndexRouteImport } from './routes/routes.index'
 import { Route as RoutesRouteIdRouteImport } from './routes/routes.$routeId'
@@ -23,6 +28,16 @@ import { Route as RoutesRouteIdRouteImport } from './routes/routes.$routeId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookRoute = BookRouteImport.update({
@@ -33,6 +48,11 @@ const BookRoute = BookRouteImport.update({
 const BookingsRoute = BookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriverRoute = DriverRouteImport.update({
+  id: '/driver',
+  path: '/driver',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotificationsRoute = NotificationsRouteImport.update({
@@ -55,6 +75,16 @@ const TrackRoute = TrackRouteImport.update({
   path: '/track',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFleetRoute = AdminFleetRouteImport.update({
+  id: '/fleet',
+  path: '/fleet',
+  getParentRoute: () => AdminRoute,
+} as any)
 const BusBusIdRoute = BusBusIdRouteImport.update({
   id: '/bus/$busId',
   path: '/bus/$busId',
@@ -73,84 +103,115 @@ const RoutesRouteIdRoute = RoutesRouteIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/driver': typeof DriverRoute
   '/notifications': typeof NotificationsRoute
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
+  '/admin/fleet': typeof AdminFleetRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/routes/': typeof RoutesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/driver': typeof DriverRoute
   '/notifications': typeof NotificationsRoute
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
+  '/admin/fleet': typeof AdminFleetRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
+  '/admin': typeof AdminIndexRoute
   '/routes': typeof RoutesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/bookings': typeof BookingsRoute
+  '/driver': typeof DriverRoute
   '/notifications': typeof NotificationsRoute
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
+  '/admin/fleet': typeof AdminFleetRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
+  '/admin/': typeof AdminIndexRoute
   '/routes/': typeof RoutesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
+    | '/auth'
     | '/book'
     | '/bookings'
+    | '/driver'
     | '/notifications'
     | '/report'
     | '/safety'
     | '/track'
+    | '/admin/fleet'
     | '/bus/$busId'
     | '/routes/$routeId'
+    | '/admin/'
     | '/routes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/book'
     | '/bookings'
+    | '/driver'
     | '/notifications'
     | '/report'
     | '/safety'
     | '/track'
+    | '/admin/fleet'
     | '/bus/$busId'
     | '/routes/$routeId'
+    | '/admin'
     | '/routes'
   id:
     | '__root__'
     | '/'
+    | '/admin'
+    | '/auth'
     | '/book'
     | '/bookings'
+    | '/driver'
     | '/notifications'
     | '/report'
     | '/safety'
     | '/track'
+    | '/admin/fleet'
     | '/bus/$busId'
     | '/routes/$routeId'
+    | '/admin/'
     | '/routes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
   BookRoute: typeof BookRoute
   BookingsRoute: typeof BookingsRoute
+  DriverRoute: typeof DriverRoute
   NotificationsRoute: typeof NotificationsRoute
   ReportRoute: typeof ReportRoute
   SafetyRoute: typeof SafetyRoute
@@ -169,6 +230,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book': {
       id: '/book'
       path: '/book'
@@ -181,6 +256,13 @@ declare module '@tanstack/react-router' {
       path: '/bookings'
       fullPath: '/bookings'
       preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/driver': {
+      id: '/driver'
+      path: '/driver'
+      fullPath: '/driver'
+      preLoaderRoute: typeof DriverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notifications': {
@@ -211,6 +293,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/fleet': {
+      id: '/admin/fleet'
+      path: '/fleet'
+      fullPath: '/admin/fleet'
+      preLoaderRoute: typeof AdminFleetRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/bus/$busId': {
       id: '/bus/$busId'
       path: '/bus/$busId'
@@ -235,10 +331,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminFleetRoute: typeof AdminFleetRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminFleetRoute: AdminFleetRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
   BookRoute: BookRoute,
   BookingsRoute: BookingsRoute,
+  DriverRoute: DriverRoute,
   NotificationsRoute: NotificationsRoute,
   ReportRoute: ReportRoute,
   SafetyRoute: SafetyRoute,

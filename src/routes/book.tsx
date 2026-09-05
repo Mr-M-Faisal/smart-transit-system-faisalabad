@@ -111,7 +111,7 @@ function BookPage() {
         destinationStopId: destination,
         destinationStop: destinationStop?.name ?? "",
         date: new Date().toISOString().slice(0, 10),
-        departureTime: new Date(Date.now() + 20 * 60000).toISOString(),
+        departureTime: new Date(Date.now() + 20 * 60000).toTimeString().slice(0, 5),
         seats,
         fare,
         status: "upcoming",

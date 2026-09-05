@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useStore } from "@/lib/store/app-store";
-import { formatDate, formatPKR, formatTime } from "@/lib/transit/utils";
+import { formatDate, formatPKR } from "@/lib/transit/utils";
 import type { Booking } from "@/lib/transit/types";
 
 export const Route = createFileRoute("/bookings")({
@@ -175,7 +175,7 @@ function BookingRow({
         </div>
 
         <div className="num space-y-1 text-xs text-muted-foreground">
-          <p>{formatDate(booking.date)} · {formatTime(booking.departureTime)}</p>
+          <p>{formatDate(booking.date)} · {booking.departureTime}</p>
           <p>Seats {booking.seats.join(", ")}</p>
           <p className="font-semibold text-foreground">{formatPKR(booking.fare)}</p>
         </div>
