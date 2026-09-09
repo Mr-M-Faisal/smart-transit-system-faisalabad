@@ -66,7 +66,7 @@ function RouteDetail() {
           subtitle={`${route.from} → ${route.to} · ${route.distanceKm} km · ${route.stopIds.length} stops`}
           actions={
             <Button asChild>
-              <Link to="/book">
+              <Link to="/book" search={{}}>
                 <Ticket className="size-4" /> Book on this route
               </Link>
             </Button>

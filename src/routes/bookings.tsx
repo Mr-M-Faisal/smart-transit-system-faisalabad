@@ -59,7 +59,7 @@ function BookingsPage() {
         subtitle="Boarding passes, payment receipts and your full travel history."
         actions={
           <Button asChild>
-            <Link to="/book">
+            <Link to="/book" search={{}}>
               <Ticket className="size-4" /> New booking
             </Link>
           </Button>
@@ -92,7 +92,7 @@ function BookingsPage() {
               description="Book a seat and your boarding pass will show up here."
               action={
                 <Button asChild>
-                  <Link to="/book">Book a seat</Link>
+                  <Link to="/book" search={{}}>Book a seat</Link>
                 </Button>
               }
             />

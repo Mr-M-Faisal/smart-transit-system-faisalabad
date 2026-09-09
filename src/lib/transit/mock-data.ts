@@ -157,14 +157,16 @@ const occupiedSeatSet = (count: number, seed: number): string[] => {
   const cols = ["A", "B", "C", "D"];
   const all: string[] = [];
   for (let r = 1; r <= rows; r++) for (const c of cols) all.push(`${r}${c}`);
-  const picked: string[] = [];
-  let x = seed;
-  while (picked.length < Math.min(count, all.length)) {
+  // Deterministic shuffle (no rejection loop) so seeding can never stall.
+  let x = seed || 1;
+  for (let i = all.length - 1; i > 0; i--) {
     x = (x * 1103515245 + 12345) % 2147483648;
-    const seat = all[x % all.length];
-    if (!picked.includes(seat)) picked.push(seat);
+    const j = x % (i + 1);
+    const tmp = all[i]!;
+    all[i] = all[j]!;
+    all[j] = tmp;
   }
-  return picked;
+  return all.slice(0, Math.min(Math.max(count, 0), all.length));
 };
 
 type BusSeed = Omit<Bus, "lat" | "lng" | "bearing" | "lastUpdated" | "occupiedSeats">;
@@ -203,8 +205,8 @@ export const positionOnRoute = (routeId: string, progress: number) => {
   const scaled = clamped * total;
   const i = Math.floor(scaled);
   const t = scaled - i;
-  const a = path[i];
-  const b = path[i + 1];
+  const a = path[i]!;
+  const b = path[i + 1]!;
   const lat = a.lat + (b.lat - a.lat) * t;
   const lng = a.lng + (b.lng - a.lng) * t;
   const bearing = (Math.atan2(b.lng - a.lng, b.lat - a.lat) * 180) / Math.PI;
