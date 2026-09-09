@@ -20,6 +20,7 @@ import { Route as ReportRouteImport } from './routes/report'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as TrackRouteImport } from './routes/track'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminFleetRouteImport } from './routes/admin.fleet'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
@@ -82,6 +83,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/fleet': typeof AdminFleetRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/fleet': typeof AdminFleetRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/report': typeof ReportRoute
   '/safety': typeof SafetyRoute
   '/track': typeof TrackRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/fleet': typeof AdminFleetRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/safety'
     | '/track'
+    | '/admin/analytics'
     | '/admin/bookings'
     | '/admin/fleet'
     | '/admin/reports'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/safety'
     | '/track'
+    | '/admin/analytics'
     | '/admin/bookings'
     | '/admin/fleet'
     | '/admin/reports'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/safety'
     | '/track'
+    | '/admin/analytics'
     | '/admin/bookings'
     | '/admin/fleet'
     | '/admin/reports'
@@ -324,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bookings': {
       id: '/admin/bookings'
       path: '/bookings'
@@ -370,6 +389,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminFleetRoute: typeof AdminFleetRoute
   AdminReportsRoute: typeof AdminReportsRoute
@@ -377,6 +397,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminBookingsRoute: AdminBookingsRoute,
   AdminFleetRoute: AdminFleetRoute,
   AdminReportsRoute: AdminReportsRoute,
