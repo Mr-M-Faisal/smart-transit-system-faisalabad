@@ -22,6 +22,7 @@ import { Route as TrackRouteImport } from './routes/track'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminFleetRouteImport } from './routes/admin.fleet'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as BusBusIdRouteImport } from './routes/bus.$busId'
 import { Route as RoutesIndexRouteImport } from './routes/routes.index'
 import { Route as RoutesRouteIdRouteImport } from './routes/routes.$routeId'
@@ -91,6 +92,11 @@ const AdminFleetRoute = AdminFleetRouteImport.update({
   path: '/fleet',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AdminRoute,
+} as any)
 const BusBusIdRoute = BusBusIdRouteImport.update({
   id: '/bus/$busId',
   path: '/bus/$busId',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/track': typeof TrackRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/fleet': typeof AdminFleetRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/track': typeof TrackRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/fleet': typeof AdminFleetRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
   '/admin': typeof AdminIndexRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/track': typeof TrackRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/fleet': typeof AdminFleetRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/bus/$busId': typeof BusBusIdRoute
   '/routes/$routeId': typeof RoutesRouteIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/track'
     | '/admin/bookings'
     | '/admin/fleet'
+    | '/admin/reports'
     | '/bus/$busId'
     | '/routes/$routeId'
     | '/admin/'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/track'
     | '/admin/bookings'
     | '/admin/fleet'
+    | '/admin/reports'
     | '/bus/$busId'
     | '/routes/$routeId'
     | '/admin'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/track'
     | '/admin/bookings'
     | '/admin/fleet'
+    | '/admin/reports'
     | '/bus/$busId'
     | '/routes/$routeId'
     | '/admin/'
@@ -326,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFleetRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/bus/$busId': {
       id: '/bus/$busId'
       path: '/bus/$busId'
@@ -353,12 +372,14 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminFleetRoute: typeof AdminFleetRoute
+  AdminReportsRoute: typeof AdminReportsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
   AdminFleetRoute: AdminFleetRoute,
+  AdminReportsRoute: AdminReportsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
