@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -53,13 +53,13 @@ export function StatCard({
   label,
   value,
   hint,
-  icon,
+  icon: Icon,
   tone = "primary",
 }: {
   label: string;
   value: ReactNode;
   hint?: string;
-  icon?: ReactNode;
+  icon?: ComponentType<{ className?: string }>;
   tone?: "primary" | "success" | "warning" | "destructive";
 }) {
   const tones = {
@@ -78,9 +78,9 @@ export function StatCard({
           <p className="num mt-1.5 text-2xl font-bold text-foreground">{value}</p>
           {hint ? <p className="mt-1 text-xs text-muted-foreground">{hint}</p> : null}
         </div>
-        {icon ? (
+        {Icon ? (
           <span className={cn("grid size-9 shrink-0 place-items-center rounded-xl", tones[tone])}>
-            {icon}
+            <Icon className="size-4" />
           </span>
         ) : null}
       </CardContent>
@@ -89,21 +89,21 @@ export function StatCard({
 }
 
 export function EmptyState({
-  icon,
+  icon: Icon,
   title,
   description,
   action,
 }: {
-  icon?: ReactNode;
+  icon?: ComponentType<{ className?: string }>;
   title: string;
   description?: string;
   action?: ReactNode;
 }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card px-6 py-14 text-center">
-      {icon ? (
+      {Icon ? (
         <span className="mb-3 grid size-12 place-items-center rounded-2xl bg-muted text-muted-foreground">
-          {icon}
+          <Icon className="size-5" />
         </span>
       ) : null}
       <p className="text-base font-semibold text-foreground">{title}</p>
