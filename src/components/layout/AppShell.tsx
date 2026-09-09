@@ -198,7 +198,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Mobile bottom navigation */}
       <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-border bg-surface/95 backdrop-blur-md lg:hidden">
-        {[commuterNav[0], commuterNav[1], commuterNav[2], commuterNav[3], commuterNav[4]].map(
+        {commuterNav.slice(0, 5).map(
           ({ to, label, icon: Icon }) => (
             <Link
               key={to}

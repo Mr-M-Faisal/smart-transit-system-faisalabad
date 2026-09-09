@@ -161,7 +161,7 @@ const occupiedSeatSet = (count: number, seed: number): string[] => {
   let x = seed;
   while (picked.length < Math.min(count, all.length)) {
     x = (x * 1103515245 + 12345) % 2147483648;
-    const seat = all[x % all.length];
+    const seat = all[x % all.length]!;
     if (!picked.includes(seat)) picked.push(seat);
   }
   return picked;
@@ -203,8 +203,8 @@ export const positionOnRoute = (routeId: string, progress: number) => {
   const scaled = clamped * total;
   const i = Math.floor(scaled);
   const t = scaled - i;
-  const a = path[i];
-  const b = path[i + 1];
+  const a = path[i]!;
+  const b = path[i + 1]!;
   const lat = a.lat + (b.lat - a.lat) * t;
   const lng = a.lng + (b.lng - a.lng) * t;
   const bearing = (Math.atan2(b.lng - a.lng, b.lat - a.lat) * 180) / Math.PI;

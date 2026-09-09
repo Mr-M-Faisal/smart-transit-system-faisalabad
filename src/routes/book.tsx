@@ -24,9 +24,8 @@ import { formatPKR } from "@/lib/transit/utils";
 import type { Booking } from "@/lib/transit/types";
 
 export const Route = createFileRoute("/book")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    busId: typeof search.busId === "string" ? search.busId : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { busId?: string } =>
+    typeof search["busId"] === "string" ? { busId: search["busId"] } : {},
   head: () => ({
     meta: [
       { title: "Book a Seat — Smart Transit Faisalabad" },
@@ -50,7 +49,7 @@ type Step = "select" | "pay" | "done";
 const uid = () => `bk-${Math.floor(100000 + Math.random() * 899999)}`;
 
 function BookPage() {
-  const { busId: initialBusId } = Route.useSearch();
+  const initialBusId = Route.useSearch().busId;
   const navigate = useNavigate();
   const { buses, routes, stops, addBooking, session } = useStore();
 

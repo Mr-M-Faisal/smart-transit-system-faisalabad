@@ -21,13 +21,13 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const tabs = [
+const tabs: { to: string; label: string; exact?: boolean }[] = [
   { to: "/admin", label: "Overview", exact: true },
   { to: "/admin/fleet", label: "Fleet & network" },
   { to: "/admin/bookings", label: "Bookings" },
   { to: "/admin/reports", label: "Reports" },
   { to: "/admin/analytics", label: "Analytics" },
-] as const;
+];
 
 function AdminLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -46,7 +46,7 @@ function AdminLayout() {
           return (
             <Link
               key={t.to}
-              to={t.to}
+              to={t.to as "/admin"}
               className={cn(
                 "whitespace-nowrap rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
                 active

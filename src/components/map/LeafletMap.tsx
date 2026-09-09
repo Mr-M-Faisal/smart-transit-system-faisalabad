@@ -95,7 +95,7 @@ export default function LeafletMap({
       center={[CITY_CENTER.lat, CITY_CENTER.lng]}
       zoom={13}
       scrollWheelZoom
-      className={className}
+      className={className ?? ""}
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer

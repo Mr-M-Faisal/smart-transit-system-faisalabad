@@ -104,7 +104,7 @@ function Home() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/book">
+                <Link to="/book" search={{}}>
                   <Ticket className="size-4" /> Book a seat
                 </Link>
               </Button>
